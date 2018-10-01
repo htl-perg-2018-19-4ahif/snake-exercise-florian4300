@@ -28,6 +28,7 @@ run();
 
 process.stdin.on('keypress', function (ch, key) {
   if (key.name === "q") {
+    stopGame();
     process.exit(0);
   }
   switch (key.name) {
