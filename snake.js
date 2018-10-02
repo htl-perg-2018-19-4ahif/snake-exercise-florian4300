@@ -6,10 +6,10 @@ var direction = 3;
 var xWindow = process.stdout.getWindowSize()[0];
 var yWindow = process.stdout.getWindowSize()[1];
 var points = 0;
+var positionSnake = {x: xWindow/2, y:yWindow/2};
 var positions = [positionSnake];
 var xApple = Math.floor((Math.random() * xWindow) + 1);
 var yApple = Math.floor(Math.random() * (yWindow - 2) + 2);
-var i;
 
 process.stdin.setRawMode(true);
 keypress(process.stdin);
@@ -158,7 +158,7 @@ function run() {
         break;
     }
     xApple = Math.floor((Math.random() * xWindow) + 1);
-    yApple = Math.floor((Math.random() * yWindow) + 1);
+    yApple = Math.floor(Math.random() * (yWindow - 2) + 2);
 
     cursor.goto(xApple, yApple).bg.red().write(" ");
     cursor.fg.reset();
