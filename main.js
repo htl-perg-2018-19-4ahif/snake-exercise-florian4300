@@ -1,6 +1,6 @@
 var ansi = require('ansi')
   , cursor = ansi(process.stdout);
-
+  process.stdout.write('\x1Bc');
 var keypress = require('keypress');
 var direction = 3;
 var xWindow = process.stdout.getWindowSize()[0];
