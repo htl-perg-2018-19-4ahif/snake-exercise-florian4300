@@ -2,7 +2,7 @@
   "name": "snake",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "snake.js",
   "dependencies": {
     "keypress": "^0.2.1",
     "ansi": "^0.3.1"

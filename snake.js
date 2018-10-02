@@ -1,22 +1,21 @@
 var ansi = require('ansi')
   , cursor = ansi(process.stdout);
-  process.stdout.write('\x1Bc');
+process.stdout.write('\x1Bc');
 var keypress = require('keypress');
 var direction = 3;
 var xWindow = process.stdout.getWindowSize()[0];
 var yWindow = process.stdout.getWindowSize()[1];
-var positionSnake = { x: xWindow / 2, y: yWindow / 2 };
 var points = 0;
 var positions = [positionSnake];
 var xApple = Math.floor((Math.random() * xWindow) + 1);
-var yApple = Math.floor(Math.random() * (yWindow-2)+2);
+var yApple = Math.floor(Math.random() * (yWindow - 2) + 2);
 var i;
 
 process.stdin.setRawMode(true);
 keypress(process.stdin);
 
 prepareBoard();
-cursor.goto(0, 0).write("Points: " + points+"  Speed: "+350/(points+1)+"ms");
+cursor.goto(0, 0).write("Points: " + points + "  Speed: " + 350 / (points + 1) + "ms");
 cursor.goto(xApple, yApple).bg.red().write(" ");
 cursor.reset();
 process.stdout.write('\x1B[?25l');
@@ -73,18 +72,15 @@ function findPosition(position, index) {
   }
   return false;
 }
-function prepareBoard(){
-  for(var i = 0; i <= xWindow; i++){
-    cursor.goto(i,0).bg.grey().write(" ");
+function prepareBoard() {
+  for (var i = 0; i <= xWindow; i++) {
+    cursor.goto(i, 0).bg.grey().write(" ");
   }
-  //for(i = 0; i<= yWindow; i++){
-    //cursor.goto(0,i).bg.grey().write(" ");
-  //}
 }
 function run() {
   cursor.goto(xApple, yApple).bg.black().write(" ");
-  for(i = 0; i < positions.length; i++){
-    cursor.goto(positions[i].x,positions[i].y).bg.black().write(" ");
+  for (i = 0; i < positions.length; i++) {
+    cursor.goto(positions[i].x, positions[i].y).bg.black().write(" ");
   }
   switch (direction) {
     case 1:
@@ -132,7 +128,7 @@ function run() {
       }
       break;
   }
-  
+
   cursor.goto(xApple, yApple).bg.red().write(" ");
   for (i = 0; i < positions.length; i++) {
     cursor.goto(positions[i].x, positions[i].y).bg.green().write(" ");
@@ -142,7 +138,7 @@ function run() {
     stopGame();
     return;
   }
-  if ((positions[0].y > yWindow || positions[0].x > xWindow || positions[0].x < 0 || positions[0].y < 2) || (positions[0].x === positions[positions.length - 1].x && positions[0].y === positions[positions.length - 1].y && positions.length > 1)) {
+  if ((positions[0].y > yWindow || positions[0].x > xWindow || positions[0].x < 0 || positions[0].y < 2)) {
     stopGame();
     return;
   }
@@ -163,7 +159,7 @@ function run() {
     }
     xApple = Math.floor((Math.random() * xWindow) + 1);
     yApple = Math.floor((Math.random() * yWindow) + 1);
-    
+
     cursor.goto(xApple, yApple).bg.red().write(" ");
     cursor.fg.reset();
     cursor.reset();
@@ -172,16 +168,16 @@ function run() {
       cursor.reset();
     }
     points++;
-    
+
     cursor.goto(0, 0).horizontalAbsolute(0).eraseLine();
-    
+
     prepareBoard();
-    cursor.goto(0,0).write("Points: " + points+"  Speed: "+350/(points+1)+"ms");
-    
+    cursor.goto(0, 0).write("Points: " + points + "  Speed: " + 350 / (points + 1) + "ms");
+
     cursor.goto(positions[0].x, positions[0].y);
     cursor.reset();
   }
-  
-  setTimeout(run,350/(points+1));
+
+  setTimeout(run, 350 / (points + 1));
 }
 
