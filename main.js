@@ -9,16 +9,14 @@ var positionSnake = { x: xWindow / 2, y: yWindow / 2 };
 var points = 0;
 var positions = [positionSnake];
 var xApple = Math.floor((Math.random() * xWindow) + 1);
-var yApple = Math.floor((Math.random() * yWindow));
+var yApple = Math.floor(Math.random() * (yWindow-2)+2);
 var i;
-
 
 process.stdin.setRawMode(true);
 keypress(process.stdin);
 
 prepareBoard();
 cursor.goto(0, 0).write("Points: " + points+"  Speed: "+350/(points+1)+"ms");
-
 cursor.goto(xApple, yApple).bg.red().write(" ");
 cursor.reset();
 process.stdout.write('\x1B[?25l');
